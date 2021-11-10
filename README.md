@@ -1,6 +1,5 @@
 # How structure of a sentence influences its popularity
 ## Abstract 
-*(143 words)*
 
 People often share their thoughts or opinions to the medias. Some of them, like politicians, do it in order to spread their views and spread influence, therefore their goal is to maximize the amount of people who will hear or read what they say. Our research aims to determine what language-related mechanisms influence sentence's reach. For this, we use Quotebank's data and explore influence of factors on quote's frequency in the media.
 
