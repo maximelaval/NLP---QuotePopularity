@@ -29,9 +29,6 @@ There are several possible problems we might encounter:
 
 By using their REST API, we are able to retrieve the number of visits on a given page, to use it as estimate of our speakers popularity, as it could be a confounding factor for ones sentence popularity.
 
-### [Corpus of Contemporary American English (COCA)](https://www.english-corpora.org/coca/)
-Only in the 2015-2020 time frame, it would be used during our sentence anylsis of words.
-
 
 ## Methods
 
