@@ -25,6 +25,9 @@ There are several possible problems we might encounter:
 - For least popular topics, results are highly volatile for shorter periods of time. 
 - Score is comparative, not absolute, so it might be problematic to compare results over time.
 
+Our team has experience with GT, so we are aware of uses and risks. You can see monthly popularity of "Donald Trump" search over several years in (fig. TrumpGT.jpg)
+
+
 ### Wikimedia 
 
 By using their REST API, we are able to retrieve the number of visits on a given page, to use it as estimate of our speakers popularity, as it could be a confounding factor for ones sentence popularity.
