@@ -121,6 +121,9 @@ From results of previous step:
 Interpret results, give conclusions
 Create a prediction model for quote popularity
 
+Note: according to data description, there are total of 178m quotes. 
+We process 5.2m in 2600sec, so we need approximately 25 hours to process everything.
+
 
 ## Organization within the team
 
