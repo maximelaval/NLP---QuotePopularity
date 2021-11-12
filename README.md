@@ -46,19 +46,21 @@ We first derive a list of paramaters we want to use for our analysis as well as 
   
  Additionally:
 - metadata on our speakers (as mentioned above, used to avoid confounding effects of these)
-  - keywords or popular words in the sentence (to infer the effects of given subjects)
-  - does the speaker address the public directly ? (e.g. "People of America \[...]", "My dear fans \[...]", this could possibly increase the scope of reach)
-  - does the quotation mention other people (could possibly increase the scope of reach)
-  - general frequencies of the words used in the quotation (................note: i'm not sure i remember why this would be useful for our project)
-  - the language level : formal/informal, this seems quite hard as it might require some NLP however we could try a "sub-problem" where we would try to detect swear words or scientific words
+- keywords or popular words in the sentence (to infer the effects of given subjects)
+- does the speaker address the public directly ? (e.g. "People of America \[...]", "My dear fans \[...]", this could possibly increase the scope of reach)
+- does the quotation mention other people (could possibly increase the scope of reach)
+- general frequencies of the words used in the quotation (................note: i'm not sure i remember why this would be useful for our project)
+- the language level : formal/informal, this seems quite hard as it might require some NLP however we could try a "sub-problem" where we would try to detect swear words or scientific words
+
+
 
 ### Data analysis
 
-Here we have analysed the 100 000 observations subsample of the data. Nevertheless, we believe that the main trends and oecilarities of this subsamole are likely to persist in the full data, as this subsample is already very large. Below we summarize the main points of interest in the data subsample.
+For purpose of primary analysis, we have taken a subsample of our data. The 100000 observations subsample of the data are available in the repo. We believe that the main trends and pecularities of this subsample are likely to persist in the full data as this subsample is already very large, and taking a subsample allows us to speed up. Below we summarize the main points of interest in the data subsample.
 
 1. Histograms.
 
-The first step in data analysis is a glance on each variable distribution by plotting histograms. The first thing to notice is that there are ouliers in each variable, and this makes the historgams hard to read. We can clearly see, however, that all the variables have a left-skewed distribution (fig. LogOcc.jpg), except the the average word length with comparatively symmetrical distribution (fig. WordLength.jpg).
+The first step in data analysis is a glance on each variable distribution by plotting histograms. The first thing to notice is that there are ouliers in each variable, and this makes the historgams hard to read. We can clearly see, however, that all the variables have a right-skewed distribution (fig. LogOcc.jpg), except the the average word length with comparatively symmetrical distribution (fig. WordLength.jpg). Commonly, skewness is dealt with by using log transforms.
 
 2. Descriptive statistics
 
@@ -75,7 +77,7 @@ The aim of our study is to analyse the determinants of the popularity of a quota
 	
 Second, when the distribution looks like many instances of small values and several instances of large values, it is useful to do a log-transformation of variables. When we look at the log-transformed variables correlation (without outliers), the sign of the correlation is preserved as described above. Note that even though the absolute value of the correlation is relatively close to zero, it is still high enough for such a large sample, which paves the way for our future research.
 
-The scatter plot for the number of occurences vs number of words (fig. OccWords.jpg) and the number of occurences vs the number of punctuation signs (fig. OccPunctuation.jpg) suggest that there is a non-linear relationship.
+The scatter plot for the number of occurences vs number of words (fig. OccWords.jpg) and the number of occurences vs the number of punctuation signs (fig. OccPunctuation.jpg) suggest that there is a non-linear relationship. Concluding note is that our sample is large, so correlations are likely to lead to statistically significant variables.
 
 4. Different subsamples. 
 
