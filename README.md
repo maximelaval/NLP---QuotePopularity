@@ -91,7 +91,7 @@ Note that at this stage of our analysis, we did not make the very detailed analy
 ### Models
 
 Once we choose the first set of parameters that we want to use (which might change depending on our first analysis results), we need to choose a model to use.
-For purposes of inference, OLS is a solid and classic choice. It also allows us to easily interpret the results.
+For purposes of inference, OLS is a solid and classic choice. It also allows us to easily interpret the results. Alternative is using decision tree, as it is also easily interpreted.
 For purposes of prediction, nonlinear models such as Neural Networks or Random Forests usually work better. Being able to predict quote's popularity is a useful side result, and these models are likely to be the best.
 
 We will determine best model depending on the results of models in question.
