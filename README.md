@@ -29,6 +29,9 @@ There are several possible problems we might encounter:
 
 By using their REST API, we are able to retrieve the number of visits on a given page, to use it as estimate of our speakers popularity, as it could be a confounding factor for ones sentence popularity.
 
+### [Corpus of Contemporary American English (COCA)](https://www.english-corpora.org/coca/)
+Only in the 2015-2020 time frame, it would be used during our sentence anylsis of words.
+
 
 ## Methods
 
@@ -54,17 +57,19 @@ We first derive a list of paramaters we want to use for our analysis as well as 
 
 ### Data analysis
 
+Here we have analysed the 100 000 observations subsample of the data. Nevertheless, we believe that the main trends and oecilarities of this subsamole are likely to persist in the full data, as this subsample is already very large. Below we summarize the main points of interest in the data subsample.
+
 1. Histograms.
 
-The first step in data analysis is a glance on each variable distribution by plotting histograms. The first thing to notice is that there are ouliers in each variable, and this makes the historgams hard to read. We can clearly see, however, that all the variables have a left-skewed distribution, except the the average word length with comparatively symmetrical distribution.
+The first step in data analysis is a glance on each variable distribution by plotting histograms. The first thing to notice is that there are ouliers in each variable, and this makes the historgams hard to read. We can clearly see, however, that all the variables have a left-skewed distribution (fig. LogOcc.jpg), except the the average word length with comparatively symmetrical distribution (fig. WordLength.jpg).
 
 2. Descriptive statistics
 
-To investigate the variables distribution further, we look at the table with the descriptive statistics. It is obvious that for each variable the maximum value is much larger than the 75th and even 99th percentiles. There are several ways to determine outliers and influential observations, including dffits and added-variable plot, but we utilise the simple rule that any observations that are more than 1.5 interdecile range below 10th percentile or more than 1.5 interdecile range above 90th percentile are outliers, as it is more feasible given the large data we have.
+To investigate the variables distribution further, we look at the table with the descriptive statistics (table Summary.csv). It is obvious that for each variable the maximum value is much larger than the 75th and even 99th percentiles. There are several ways to determine outliers and influential observations, including dffits and added-variable plot, but we utilise the simple rule that any observations that are more than 1.5 interdecile range below 10th percentile or more than 1.5 interdecile range above 90th percentile are outliers, as it is more feasible given the large data we have (table Summary_noout.csv).
 
 3. Correlation 
 
-The aim of our study is to analyse the determinants of the popularity of a quotation. Here we measure popularity with the number of occurences of a quotation. First, if we look at the correlation of the number of occurences with each parameter (without outliers), we spot the following:
+The aim of our study is to analyse the determinants of the popularity of a quotation. Here we measure popularity with the number of occurences of a quotation. First, if we look at the correlation of the number of occurences with each parameter (without outliers), we spot the following (table Corr_noout.csv):
 
 - there is a negative correlation between the number of words and the number of occurences, so it may be the case that shorter quotations tend to be more popular;
 - there is a positive correlation between the average word length and the number of occurences, so it may be the case that quotations with longer words tend to be more popular;
@@ -73,11 +78,11 @@ The aim of our study is to analyse the determinants of the popularity of a quota
 	
 Second, when the distribution looks like many instances of small values and several instances of large values, it is useful to do a log-transformation of variables. When we look at the log-transformed variables correlation (without outliers), the sign of the correlation is preserved as described above. Note that even though the absolute value of the correlation is relatively close to zero, it is still high enough for such a large sample, which paves the way for our future research.
 
-The scatter plot for the number of occurences vs number of words and the number of occurences vs number of repeated words suggest that there is a non-linear relationship.
+The scatter plot for the number of occurences vs number of words (fig. OccWords.jpg) and the number of occurences vs the number of punctuation signs (fig. OccPunctuation.jpg) suggest that there is a non-linear relationship.
 
 4. Different subsamples. 
 
-We have checked that if we look at the instances of very high (more than 99th percentile) number of occurences (including outliers) and compare the correlations with other variables for the subsample with removed outliers, we see that the signs of several correlations differ:
+We have checked that if we look at the instances of very high (more than 99th percentile) number of occurences (including outliers) and compare its correlations with other variables (table Corr_large_occ.csv) with that for the subsample with removed outliers (table Corr_noout.csv), we see that the signs of several correlations differ:
 
 - there is a positive correlation between the average word length and the number of occurences in the sample without outliers, but it is negative for the sample with highly popular quotations only, so there may be the non-linearity in this relationship;
 - there is a very small correlation coefficient for the no-outliers subsample between the largest word length and the number of occurences, but in the high-popularity subsample this correlation coefficient is large by the absolute value and negative, suggesting that it may important not to use too long words if you want your quotation ti become extremely popular.
