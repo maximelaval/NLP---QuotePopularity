@@ -55,6 +55,37 @@ We first derive a list of paramaters we want to use for our analysis as well as 
   - general frequencies of the words used in the quotation (................note: i'm not sure i remember why this would be useful for our project)
   - the language level : formal/informal, this seems quite hard as it might require some NLP however we could try a "sub-problem" where we would try to detect swear words or scientific words
 
+### Data analysis
+
+1. Histograms.
+
+The first step in data analysis is a glance on each variable distribution by plotting histograms. The first thing to notice is that there are ouliers in each variable, and this makes the historgams hard to read. We can clearly see, however, that all the variables have a left-skewed distribution, except the the average word length with comparatively symmetrical distribution.
+
+2. Descriptive statistics
+
+To investigate the variables distribution further, we look at the table with the descriptive statistics. It is obvious that for each variable the maximum value is much larger than the 75th and even 99th percentiles. There are several ways to determine outliers and influential observations, including dffits and added-variable plot, but we utilise the simple rule that any observations that are more than 1.5 interdecile range below 10th percentile or more than 1.5 interdecile range above 90th percentile are outliers, as it is more feasible given the large data we have.
+
+3. Correlation 
+
+The aim of our study is to analyse the determinants of the popularity of a quotation. Here we measure popularity with the number of occurences of a quotation. First, if we look at the correlation of the number of occurences with each parameter (without outliers), we spot the following:
+
+- there is a negative correlation between the number of words and the number of occurences, so it may be the case that shorter quotations tend to be more popular;
+- there is a positive correlation between the average word length and the number of occurences, so it may be the case that quotations with longer words tend to be more popular;
+- there is a negative correlation between the number of punctuation signs and the number of occurences, so it may be the case that the quotations with more simple yet not too short sentences tend to be more popular;
+- there is a negative correlation between the number of repeated words and the number of occurences, so it may be the case that the quotations with more diverse words tend to be more popular.
+	
+Second, when the distribution looks like many instances of small values and several instances of large values, it is useful to do a log-transformation of variables. When we look at the log-transformed variables correlation (without outliers), the sign of the correlation is preserved as described above. Note that even though the absolute value of the correlation is relatively close to zero, it is still high enough for such a large sample, which paves the way for our future research.
+
+The scatter plot for the number of occurences vs number of words and the number of occurences vs number of repeated words suggest that there is a non-linear relationship.
+
+4. Different subsamples. 
+
+We have checked that if we look at the instances of very high (more than 99th percentile) number of occurences (including outliers) and compare the correlations with other variables for the subsample with removed outliers, we see that the signs of several correlations differ:
+
+- there is a positive correlation between the average word length and the number of occurences in the sample without outliers, but it is negative for the sample with highly popular quotations only, so there may be the non-linearity in this relationship;
+- there is a very small correlation coefficient for the no-outliers subsample between the largest word length and the number of occurences, but in the high-popularity subsample this correlation coefficient is large by the absolute value and negative, suggesting that it may important not to use too long words if you want your quotation ti become extremely popular.
+
+Note that at this stage of our analysis, we did not make the very detailed analysis of what happens when we have extremely large values of our variables, because it deserves a profound research and modelling, which is out of scope now and be done for the next project milestone.
 
 ### Models
 
