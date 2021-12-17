@@ -98,11 +98,10 @@ The data is heavily skewed which makes our analysis difficult, hence we decide t
 As mentioned in the parameters section, we also make use of second order interactions. We first decide to try all of them, and while some of these features are significant, they don't contribute that much : the MSE we get is 0.001 lower than the one before. Then we try with another model, from the XGBoost library which we will detail later. Note this model is usually better suited for classification however it's still quite good for regression purposes. We obtain a MSE which is 0.01 lower than previously (0.373), that is, slightly better than with least squares but not enough for us to conclude that more complex nonlinear models explain the data well enough. We kept the second order interactions for our classification task with XGBoost so that we're consistent in our analysis but also to address possible cases of complex nonlinear relationships. Note also that we can have more degrees of freedom without stability problems because of our large sample size.
 
 5. Classification
-Using the same definition of popular as before, we take a sample with as many "popular" quotes as "unpopular" ones. We build the classifier and try to predict "popular" quotes with it. 
-First we use a logistic function from the statsmodel library and the logistic function from XGBoost and ???
+Using the same definition of popular as before, we take a sample with as many "popular" quotes as "unpopular" ones. We build the classifier and try to predict "popular" quotes with it. Next, we follow the classification approach. If our goal is to predict whether the quote will be popular or not, we can consider binary classification, and respective models. We take quotes which have more than 100 occurences as Popular, and try to predict the probability of being popular. First, we use classic logit approach. To avoid problems of sample balance, we take all Popular quotes and same number of others. Results are no different from before - we don't really predict well enough. XGB is one of the best classifiers in the field, but performs only marginally better.
 
 6. Google Trend data addition
- 
+Popularity of a speaker might be an important feature. To access it, we use Google Trends - via pytrends library which uses Google API to access popularity of a search term. We are strongly restricted on number of calls, but manage to obtain a sample of about 300 people. We add this feature to our analysis, and repeat it. Even though our perfomance improved and the popularity is highly significant, we do not see any significant breakthrough, with R^2 still as low as previously.
 
 
 ### Models
