@@ -1,65 +1,52 @@
-# How structure of a sentence influences its popularity
+# How does the features of a sentence influences its popularity
 ## Abstract 
 
-People often share their thoughts or opinions to the medias. Some of them, like politicians, do it in order to spread their views and spread influence, therefore their goal is to maximize the amount of people who will hear or read what they say. Our research aims to determine what language-related mechanisms influence sentence's reach. For this, we use Quotebank's data and explore influence of factors on quote's frequency in the media.
+People often share their thoughts or opinions to the medias. Some of them, like politicians, do it in order to spread their views and spread influence, therefore their goal is to maximize the amount of people who will hear or read what they say. Our research aims to determine what language-related mechanisms influence a sentence's reach. For this, we use Quotebank's data and explore the influence of simple factors on quote's frequency in the media.
 
 
 ## Research Questions
-- How features of sentence are related to its popularity?
+- Does the basic intrinsic features of a sentence influence its popularity ?
+- If so, which features are most related to its popularity?
 - Are there any non-sentence related features which may confound our results?
 
 
-## Proposed additional datasets
-We're going to use the following datasets :
+## Additional datasets
+We used the following datasets :
 
-### Wikidata 
-
-We want to get the speakers gender, field of occupation, age and net worth. We use this information mainly to include confounding variables directly and remove omitted variable bias from our research.
 
 ### Google Trends 
  
-Used to get words/speaker popularity. It gives a 0-100 score for a given search topic, in a given period of time and region. Higher number represents higher percentile among all searches. We are looking to account for speaker's popularity, as it is likely to affect quote's popularity.
+Used to get words/speaker popularity. It gives a 0-100 score for a given search topic, in a given period of time and region. Higher number represents higher percentile among all searches. We are looking to account for speaker's popularity, as it is likely to affect quote's popularity. 
 
-There are several possible problems we might encounter:
-- Number of API calls per hour is limited, so using it on every speaker or quote is not feasible.
-- For least popular topics, results are highly volatile for shorter periods of time. 
-- Score is comparative, not absolute, so it might be problematic to compare results over time.
+We use Google Trends specifically for the analysis of popular quotes, as such we take a sub-sample of the most popular quote, where we define "popular" as "has over 1000 citations". From this we get 290 unique speakers but note that this is by not exhaustive, indeed we encountered a few issues with the dataset : as expected, because the number of API calls per hour is limited, we couldn't obtain as much data as we hoped, so the number of unique speakers is as high as we could retrieve in 2 days using 3 proxies. For correct inference, we would need unique an identifier for each person, or regroup under one ID all references to the same person, however considering Quotebank have different entities for the same person (such as President Donald Trump and Donald Trump), we leave this issue for further research. On top of this, Google Trends has really strict request requirements and doesn't process non-ASCII characters, which makes things difficult for non-english speakers. 
 
-Our team has experience with GT, so we are aware of uses and risks. You can see monthly popularity of "Donald Trump" search over several years in (fig. TrumpGT.jpg)
-
-
-### Wikimedia 
-
-By using their REST API, we are able to retrieve the number of visits on a given page, to use it as estimate of our speakers popularity, as it could be a confounding factor for ones sentence popularity.
-
+We use the monthly popularity of the speakers as well as the average popularity from 2012 to the quotation date as this is a period over which Google Trends data is stable but still relevant.
 
 ## Methods
 
-
 ### Parameters
 
-We first derive a list of paramaters we want to use for our analysis as well as why we want to use these parameters. Some proposed parameters for now are listed below :
-  - the humber of words in the quotation, possibly removing connectors words such as conjunctions, determinants and others
-  - the average word length
-  - the longest word length 
-  - the number and type of punctuation signs
-  - the number of repeated words
-  - the presence of literal numbers  
- We picked these parameters because they seem to be the most obvious and straightforwrard metrics we can compute and compare.
+Here are the parameters we use as well as the reason why : 
+
+- `numOccurrences` the number of times a quotation appears in our dataset
+- `numWords` the number of words in the quotation
+- `averageWordLength` the average word length
+- `largestWordLength` the longest word length 
+- `numOfPunctuation` the number of punctuation signs
+- `numRepeatedWords` the number of repeated words
+- `numNumbers` how many times a literal number appears in the quotation (however considering how highly insignificant this feature is, we omit it)
+ We pick these parameters because they seem to be the most obvious and straightforward metrics we can compute and compare.
   
- Additionally:
-- metadata on our speakers (as mentioned above, used to avoid confounding effects of these)
-- keywords or popular words in the sentence (to infer the effects of given subjects)
-- does the speaker address the public directly ? (e.g. "People of America \[...]", "My dear fans \[...]", this could possibly increase the scope of reach)
-- does the quotation mention other people (could possibly increase the scope of reach)
-- general frequencies of the words used in the quotation (................note: i'm not sure i remember why this would be useful for our project)
-- the language level : formal/informal, this seems quite hard as it might require some NLP however we could try a "sub-problem" where we would try to detect swear words or scientific words
+Additionally:
+
+- we try all second order interaction terms
+- `SpeakerPop` the speaker popularity according to Google Trends
 
 
 
 ### Data analysis
-
-For purpose of primary analysis, we have taken a subsample of our data. The 100000 observations subsample of the data are available in the repo. We believe that the main trends and pecularities of this subsample are likely to persist in the full data as this subsample is already very large, and taking a subsample allows us to speed up. Below we summarize the main points of interest in the data subsample.
+#### Initial Data Analysis (M2)
+For purpose of primary analysis, we have taken a subsample of our data. The 100000 observations subsample of the data are available in the repo. We believe that the main trends and peculiarities of this subsample are likely to persist in the full data as this subsample is already very large, and taking a subsample allows us to speed up. Below we summarize the main points of interest in the data subsample.
 
 1. Histograms.
 
@@ -91,13 +78,38 @@ We have checked that if we look at the instances of very high (more than 99th pe
 
 Note that at this stage of our analysis, we did not make the very detailed analysis of what happens when we have extremely large values of our variables, because it deserves a profound research and modelling, which is out of scope now and be done for the next project milestone.
 
+#### In depth data analysis (M3)
+
+1. Preliminary remarks
+   - Because the number of occurrences of a quotation increases over time, we should consider old data, however because trends tend to change and because we want to gain insights and results meaningful in today's context, we should rather consider recent data. As such, we decide to use data from 2017 which seems to be a good compromise. Note that we only use one year for two reasons, the first one being the fact that this is enough data for the purpose of our analysis and the second one being that we are greatly limited by our equipment or technology at our hands (we don't have powerful machines and Colab doesn't allow us much resources).
+   - Our analysis really focus on large scale data as well as on the effect of _simple, intrinsic_ features (the ones we detailed earlier). Future research could include some more complex features, like the ones described [here](https://www.mdpi.com/2076-3417/10/20/7285/pdf) for example.
+   - We remove outliers as well as quotations which occur only once because it means Quotebank only has the original (i.e. this quote hasn't been quoted anywhere else as far as Quotebank can tell us). 
+   - Because we really want to focus on explanation rather than prediction, we do not make use of cross-validation. Of course, with further research on classification and more complex features, we would definitely cross-validate our results.
+   - Despite using several more or less complex models, we get low R² values everywhere, which means none of our models explain the data well based on our features selection. Hence a future interesting research could be to develop our own model to describe quotations complexity, similar to what is done [here](https://aclanthology.org/2021.semeval-1.76.pdf).
+
+2. Usage of the whole sample 
+As said earlier, we first pre-process the data in a classic fashion and then describe it to observe an expected result : the data is heavily skewed, very few quotations are cited more than hundreds of time while a huge amount are quoted less than 5 times. Indeed, only 10% of our sample has more than 14 references and the mean is equal to 10 while the median is 3. Only 1% of our sample has more than 110 citations. This already indicate it might be hard to find meaningful results.
+As suggested by the data outlook, we use a log scale and perform the regression again. We don't get significantly different results.
+
+3. Restriction to popular quotes only
+The data is heavily skewed which makes our analysis difficult, hence we decide to restrict our analysis to popular quotes only. Here we defined 'popular' as quotes which have more than 100 occurrences. We observe a much smaller (more than half) MSE compared to the full sample (0.4 vs 0.9).
+
+4. Feature engineering
+As mentioned in the parameters section, we also make use of second order interactions. We first decide to try all of them, and while some of these features are significant, they don't contribute that much : the MSE we get is 0.001 lower than the one before. Then we try with another model, from the XGBoost library which we will detail later. Note this model is usually better suited for classification however it's still quite good for regression purposes. We obtain a MSE which is 0.01 lower than previously (0.373), that is, slightly better than with least squares but not enough for us to conclude that more complex nonlinear models explain the data well enough. We kept the second order interactions for our classification task with XGBoost so that we're consistent in our analysis but also to address possible cases of complex nonlinear relationships. Note also that we can have more degrees of freedom without stability problems because of our large sample size.
+
+5. Classification
+Using the same definition of popular as before, we take a sample with as many "popular" quotes as "unpopular" ones. We build the classifier and try to predict "popular" quotes with it. 
+First we use a logistic function from the statsmodel library and the logistic function from XGBoost and ???
+
+6. Google Trend data addition
+ 
+
+
 ### Models
 
-Once we choose the first set of parameters that we want to use (which might change depending on our first analysis results), we need to choose a model to use.
-For purposes of inference, OLS is a solid and classic choice. It also allows us to easily interpret the results. Alternative is using decision tree, as it is also easily interpreted.
-For purposes of prediction, nonlinear models such as Neural Networks or Random Forests usually work better. Being able to predict quote's popularity is a useful side result, and these models are likely to be the best.
+For purposes of inference, OLS is a solid and classic choice. It also allows us to easily interpret the results. Hence this is what we use for most of our analysis. We also use XGBoost.
+For purposes of prediction, we use [a nonlinear model](https://docs.getml.com/latest/api/getml.predictors.XGBoostRegressor.html) from the XGBoost library which uses a mix of techniques such as Random Forest and Gradient Boosting. This is a [well known and acclaimed](https://en.wikipedia.org/wiki/XGBoost) classifier model which usually outperforms other models in practice. 
 
-We will determine best model depending on the results of models in question.
 
 ## Proposed timeline
 
@@ -127,14 +139,7 @@ We process 5.2m in 2600sec, so we need approximately 25 hours to process everyth
 
 ## Organization within the team
 
-K. Faustini - report writing
-M. Laval - data handling
-A. Khozhenetc - organization
-A. Kovrigina - analysis, research idea
-
-
-## Questions for TAs
-
-1. What model is preferable for inference? OLS is a classic choice, but what would be the best choice, given that we want to interpret the results as well?
-2. Is it even useful to create a predictive model? 
-3. What data can we use to determine metadata on words, such as whether they are academic or common, or their use frequency?
+K.Faustini - report writing and data story  
+M.Laval - data handling  
+A.Khozhenetc - organization  
+A.Kovrigina - analysis, research idea  
