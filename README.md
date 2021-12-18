@@ -142,7 +142,7 @@ We process 5.2m in 2600sec, so we need approximately 25 hours to process everyth
 
 ## Organization within the team
 
-K.Faustini - report writing and data story  
+K.Faustini - data story  
 M.Laval - data handling  
-A.Khozhenetc - organization  
-A.Kovrigina - analysis, research idea  
+A.Khozhenetc - modelling, organization  
+A.Kovrigina - data analysis, research idea  
